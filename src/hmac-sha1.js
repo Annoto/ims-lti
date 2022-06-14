@@ -83,7 +83,9 @@ class HMAC_SHA1 {
     }
 
     const parsedUrl = url.parse(originalUrl, true);
-    const hitUrl = protocol + '://' + req.headers.host + parsedUrl.pathname;
+
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const hitUrl = protocol + '://' + host + parsedUrl.pathname;
 
     return this.build_signature_raw(
       hitUrl,
