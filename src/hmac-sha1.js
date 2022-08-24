@@ -72,11 +72,6 @@ class HMAC_SHA1 {
     let originalUrl = req.originalUrl || req.url;
     let { protocol } = req;
 
-    // Since canvas/schoology includes query parameters in the body we can omit the query string
-    if (body.tool_consumer_info_product_family_code === 'canvas' || body.tool_consumer_info_product_family_code == 'schoology') {
-      originalUrl = url.parse(originalUrl).pathname;
-    }
-
     if (protocol === undefined) {
       const { encrypted } = req.connection;
       protocol = (encrypted && 'https') || 'http';
@@ -84,10 +79,26 @@ class HMAC_SHA1 {
 
     const parsedUrl = url.parse(originalUrl, true);
     const hitUrl = protocol + '://' + req.headers.host + parsedUrl.pathname;
+    let query = {};
+
+    // Since canvas/schoology may include query parameters in the body we need to omit them from the query params
+    if (parsedUrl.query) {
+      const familyCode = body.tool_consumer_info_product_family_code;
+      if (['canvas', 'schoology'].includes(familyCode)) {
+        Object.keys(parsedUrl.query).forEach((key) => {
+            if (body[key]) {
+              return;
+            }
+            query[key] = parsedUrl.query[key];
+        });
+      } else {
+        query = parsedUrl.query;
+      }
+    }
 
     return this.build_signature_raw(
       hitUrl,
-      parsedUrl,
+      { query },
       req.method,
       body,
       consumer_secret,
