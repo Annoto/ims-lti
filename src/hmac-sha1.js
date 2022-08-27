@@ -86,7 +86,7 @@ class HMAC_SHA1 {
       const familyCode = body.tool_consumer_info_product_family_code;
       if (['canvas', 'schoology'].includes(familyCode)) {
         Object.keys(parsedUrl.query).forEach((key) => {
-            if (body[key]) {
+            if (typeof body[key] !== 'undefined') {
               return;
             }
             query[key] = parsedUrl.query[key];
