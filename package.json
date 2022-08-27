@@ -1,6 +1,6 @@
 {
   "name": "@annoto/ims-lti",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Module for building an LTI Tool Provider and accept LTI launch requests",
   "author": {
     "name": "James Rundquist",
@@ -16,8 +16,8 @@
       "email": "dave@davidkosub.com"
     },
     {
-        "name": "Genadi Sokolov",
-        "email": "genadi@annoto.net"
+      "name": "Genadi Sokolov",
+      "email": "genadi@annoto.net"
     }
   ],
   "license": "MIT",
