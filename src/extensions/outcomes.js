@@ -296,7 +296,9 @@ class OutcomeService {
       if (err) {
         return callback(
           new errors.OutcomeResponseError(
-            'The server responsed with an invalid XML document'
+            'The server responsed with an invalid XML document',
+            body,
+            err
           ),
           false
         );
@@ -314,7 +316,7 @@ class OutcomeService {
           response,
           'imsx_POXHeader.imsx_POXResponseHeaderInfo.imsx_statusInfo.imsx_description'
         );
-        return callback(new errors.OutcomeResponseError(msg), false);
+        return callback(new errors.OutcomeResponseError(msg, response), false);
       } else {
         return callback(null, true, response);
       }
