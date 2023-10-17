@@ -247,7 +247,11 @@ class OutcomeService {
     });
 
     req.on('error', err => {
-      return callback(err, false);
+      return callback(new errors.OutcomeResponseError(
+        'Error processing request',
+        undefined,
+        err
+      ), false);
     });
 
     req.write(xml);
@@ -296,7 +300,9 @@ class OutcomeService {
       if (err) {
         return callback(
           new errors.OutcomeResponseError(
-            'The server responsed with an invalid XML document'
+            'The server responsed with an invalid XML document',
+            body,
+            err
           ),
           false
         );
@@ -314,7 +320,7 @@ class OutcomeService {
           response,
           'imsx_POXHeader.imsx_POXResponseHeaderInfo.imsx_statusInfo.imsx_description'
         );
-        return callback(new errors.OutcomeResponseError(msg), false);
+        return callback(new errors.OutcomeResponseError(msg, body), false);
       } else {
         return callback(null, true, response);
       }
