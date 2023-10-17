@@ -5,10 +5,11 @@ class ParameterError extends Error {}
 class SignatureError extends Error {}
 class NonceError extends Error {}
 class OutcomeResponseError extends Error {
-  constructor(message, data, cause) {
+  constructor(message, body, cause) {
     super(message);
-    this.data = data;
+    this.body = body;
     this.cause = cause;
+    this.isOutcomeResponseError = true;
   }
 }
 
