@@ -11,13 +11,13 @@ This is a nodejs library used to help create Tool Providers for the
 ## Install
 
 ```shell
-npm install ims-lti --save
+npm install @annoto/ims-lti --save
 ```
 
 To require the library into your project
 
 ```javascript
-require('ims-lti')
+require('@annoto/ims-lti')
 ```
 
 ## Supported LTI Versions
