@@ -41,10 +41,11 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "test": "nyc mocha --exit",
-    "prettier": "prettier --write --trailing-comma es5 --single-quote ./src"
+    "prettier": "prettier --write --trailing-comma es5 --single-quote ./src",
+    "postinstall": "npx rimraf node_modules/xml2js/lib/xml2js.bc.js"
   },
   "dependencies": {
-    "xml2js": "^0.4.19",
+    "xml2js": "^0.6.2",
     "xmlbuilder": "^10.1.1",
     "uuid": "^3.3.2"
   },
